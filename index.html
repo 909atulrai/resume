@@ -19,7 +19,7 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -51,6 +51,7 @@
       --dark: #232528;
       --light: #F9FAFB;
       --gray: #6C757D;
+      --light-blue: #E8F4FF;
     }
 
     .container {
@@ -61,7 +62,7 @@
 
     /* Header and Navigation */
     header {
-      background: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.97);
       backdrop-filter: blur(12px);
       box-shadow: 0 4px 20px rgba(0,0,0,0.05);
       transition: all 0.3s ease;
@@ -193,38 +194,79 @@
       box-shadow: 0 25px 50px rgba(0,0,0,0.15);
     }
 
-    /* Skills Section */
-    .skill-box {
+    /* Skills Section - Redesigned */
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .skill-category {
       background: white;
       border-radius: 20px;
-      padding: 35px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-      transition: transform 0.4s, border-color 0.4s;
-      border: 2px solid transparent;
-      height: 100%;
+      padding: 40px 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: all 0.4s ease;
+      border-top: 5px solid var(--secondary);
       position: relative;
       overflow: hidden;
     }
 
-    .skill-box:hover {
-      transform: translateY(-15px);
-      border-color: var(--accent);
+    .skill-category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(to right, var(--secondary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
     }
 
-    .skill-tag {
-      background: var(--light);
-      border-radius: 30px;
-      padding: 10px 25px;
-      margin: 10px 8px;
-      font-size: 15px;
+    .skill-category:hover::before {
+      transform: scaleX(1);
+    }
+
+    .skill-category:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    .skill-category h4 {
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      color: var(--primary);
+    }
+
+    .skill-category h4 i {
+      margin-right: 12px;
+      font-size: 1.8rem;
+      color: var(--secondary);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 15px;
+    }
+
+    .skill-item {
+      background: var(--light-blue);
+      border-radius: 12px;
+      padding: 12px 15px;
+      text-align: center;
       font-weight: 500;
-      display: inline-block;
-      transition: all 0.3s;
+      font-size: 14px;
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
 
-    .skill-tag::before {
+    .skill-item::before {
       content: '';
       position: absolute;
       top: 0;
@@ -235,14 +277,15 @@
       transition: left 0.5s;
     }
 
-    .skill-tag:hover::before {
+    .skill-item:hover::before {
       left: 100%;
     }
 
-    .skill-tag:hover {
+    .skill-item:hover {
       background: var(--secondary);
       color: white;
-      transform: translateY(-5px) scale(1.05);
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,163,255,0.3);
     }
 
     /* Services Section */
@@ -274,40 +317,58 @@
       color: var(--accent);
     }
 
-    /* Projects Section */
-    .project-box {
-      background: white;
-      border-radius: 20px;
-      padding: 35px;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.4s, box-shadow 0.4s;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-      margin-bottom: 40px;
+    /* Projects Section - Redesigned */
+    .projects-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
     }
 
-    .project-box:hover {
+    .project-card {
+      background: white;
+      border-radius: 20px;
+      padding: 35px 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      border-top: 5px solid var(--secondary);
+    }
+
+    .project-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     }
 
-    .project-box::before {
-      content: '';
-      position: absolute;
-      top: -100%;
-      left: -100%;
-      width: 300%;
-      height: 300%;
-      background: linear-gradient(45deg, transparent, rgba(0,163,255,0.1), transparent);
-      transform: rotate(45deg);
-      transition: top 0.5s, left 0.5s;
-      opacity: 0;
+    .project-icon {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      margin-bottom: 20px;
+      display: inline-block;
+      width: 70px;
+      height: 70px;
+      line-height: 70px;
+      text-align: center;
+      border-radius: 50%;
+      background: var(--light-blue);
+      transition: all 0.3s ease;
     }
 
-    .project-box:hover::before {
-      opacity: 1;
-      top: -50%;
-      left: -50%;
+    .project-card:hover .project-icon {
+      background: var(--secondary);
+      color: white;
+      transform: rotate(10deg) scale(1.1);
+    }
+
+    .project-card h4 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .project-card p {
+      color: var(--gray);
+      margin-bottom: 0;
     }
 
     /* Certifications Section */
@@ -446,6 +507,8 @@
       .logo-text { font-size: 26px; }
       .desktop-menu { display: none; }
       .mobile-menu-btn { display: block; }
+      .projects-container { grid-template-columns: 1fr; }
+      .skills-container { grid-template-columns: 1fr; }
     }
 
     @media (min-width: 769px) {
@@ -558,40 +621,44 @@
   <section id="skills" class="section-padding bg-light">
     <div class="container">
       <h2 class="text-center section-title gsap-fade-in">Core Skills</h2>
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <div class="skill-box gsap-slide-left">
-            <h4 class="mb-4"><i class="fas fa-cloud mr-2" style="color: var(--secondary);"></i>Salesforce Ecosystem</h4>
-            <div class="skill-tag">Apex Programming</div>
-            <div class="skill-tag">Lightning Web Components (LWC)</div>
-            <div class="skill-tag">Visualforce Pages</div>
-            <div class="skill-tag">Salesforce Flows</div>
-            <div class="skill-tag">Validation & Workflow Rules</div>
-            <div class="skill-tag">Reports & Dashboards</div>
-            <div class="skill-tag">SOQL/SOSL Queries</div>
+      <div class="skills-container">
+        <div class="skill-category gsap-slide-left">
+          <h4><i class="fas fa-cloud"></i>Salesforce Ecosystem</h4>
+          <div class="skills-grid">
+            <div class="skill-item">Apex Programming</div>
+            <div class="skill-item">Lightning Web Components</div>
+            <div class="skill-item">Visualforce Pages</div>
+            <div class="skill-item">Salesforce Flows</div>
+            <div class="skill-item">Validation Rules</div>
+            <div class="skill-item">Reports & Dashboards</div>
+            <div class="skill-item">SOQL/SOSL Queries</div>
+            <div class="skill-item">Workflow Rules</div>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
-          <div class="skill-box gsap-fade-in">
-            <h4 class="mb-4"><i class="fas fa-bullhorn mr-2" style="color: var(--secondary);"></i>Marketing Automation</h4>
-            <div class="skill-tag">Pardot Implementation</div>
-            <div class="skill-tag">Lead Scoring Models</div>
-            <div class="skill-tag">Engagement Studio</div>
-            <div class="skill-tag">Email Marketing Campaigns</div>
-            <div class="skill-tag">User Synchronization</div>
-            <div class="skill-tag">Dynamic Content Creation</div>
+        <div class="skill-category gsap-fade-in">
+          <h4><i class="fas fa-bullhorn"></i>Marketing Automation</h4>
+          <div class="skills-grid">
+            <div class="skill-item">Pardot Implementation</div>
+            <div class="skill-item">Lead Scoring Models</div>
+            <div class="skill-item">Engagement Studio</div>
+            <div class="skill-item">Email Marketing</div>
+            <div class="skill-item">User Synchronization</div>
+            <div class="skill-item">Dynamic Content</div>
+            <div class="skill-item">Campaign Management</div>
+            <div class="skill-item">Marketing Analytics</div>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
-          <div class="skill-box gsap-slide-right">
-            <h4 class="mb-4"><i class="fas fa-code mr-2" style="color: var(--secondary);"></i>Web & Integrations</h4>
-            <div class="skill-tag">REST/SOAP APIs</div>
-            <div class="skill-tag">WordPress Development</div>
-            <div class="skill-tag">Mailchimp Integration</div>
-            <div class="skill-tag">Twilio SMS/API</div>
-            <div class="skill-tag">JavaScript/ES6</div>
-            <div class="skill-tag">HTML5 & CSS3</div>
-            <div class="skill-tag">PHP & MySQL</div>
+        <div class="skill-category gsap-slide-right">
+          <h4><i class="fas fa-code"></i>Web & Integrations</h4>
+          <div class="skills-grid">
+            <div class="skill-item">REST/SOAP APIs</div>
+            <div class="skill-item">WordPress Development</div>
+            <div class="skill-item">Mailchimp Integration</div>
+            <div class="skill-item">Twilio SMS/API</div>
+            <div class="skill-item">JavaScript/ES6</div>
+            <div class="skill-item">HTML5 & CSS3</div>
+            <div class="skill-item">PHP & MySQL</div>
+            <div class="skill-item">Git & Version Control</div>
           </div>
         </div>
       </div>
@@ -630,30 +697,48 @@
   <section id="projects" class="section-padding bg-light">
     <div class="container">
       <h2 class="text-center section-title gsap-fade-in">Featured Projects</h2>
-      <div class="row">
-        <div class="col-lg-6 mb-4">
-          <div class="project-box gsap-slide-left">
-            <h4 class="mb-3">Insurance CRM Portal</h4>
-            <p>Engineered a comprehensive LWC-based CRM system for policy management, agent tracking, and renewal processes. Implemented dynamic approval workflows and integrated LWR sites for role-based access, reducing processing time by 40%.</p>
+      <div class="projects-container">
+        <div class="project-card gsap-slide-left">
+          <div class="project-icon">
+            <i class="fas fa-shield-alt"></i>
           </div>
+          <h4>Insurance CRM Portal</h4>
+          <p>Engineered a comprehensive LWC-based CRM system for policy management, agent tracking, and renewal processes. Implemented dynamic approval workflows and integrated LWR sites for role-based access, reducing processing time by 40%.</p>
         </div>
-        <div class="col-lg-6 mb-4">
-          <div class="project-box gsap-slide-right">
-            <h4 class="mb-3">Real Estate CRM with Rightmove API</h4>
-            <p>Developed automated property syncing and lead generation features using asynchronous Apex and APIs. Created intuitive dashboards and data models, enabling 25% faster lead qualification for real estate agencies.</p>
+        <div class="project-card gsap-fade-in">
+          <div class="project-icon">
+            <i class="fas fa-home"></i>
           </div>
+          <h4>Real Estate CRM with Rightmove API</h4>
+          <p>Developed automated property syncing and lead generation features using asynchronous Apex and APIs. Created intuitive dashboards and data models, enabling 25% faster lead qualification for real estate agencies.</p>
         </div>
-        <div class="col-lg-6 mb-4">
-          <div class="project-box gsap-slide-left">
-            <h4 class="mb-3">Marketing Automation Platform</h4>
-            <p>Integrated Pardot with Salesforce for advanced lead scoring and email campaigns. Designed engagement studios and behavior-based automations, increasing campaign ROI by 35% for marketing teams.</p>
+        <div class="project-card gsap-slide-right">
+          <div class="project-icon">
+            <i class="fas fa-robot"></i>
           </div>
+          <h4>Marketing Automation Platform</h4>
+          <p>Integrated Pardot with Salesforce for advanced lead scoring and email campaigns. Designed engagement studios and behavior-based automations, increasing campaign ROI by 35% for marketing teams.</p>
         </div>
-        <div class="col-lg-6 mb-4">
-          <div class="project-box gsap-slide-right">
-            <h4 class="mb-3">Healthcare Payment Integration</h4>
-            <p>Built a secure PHP-based payment form with real-time Salesforce synchronization via REST APIs. Captured and linked patient data to service records, streamlining billing and reducing errors by 50%.</p>
+        <div class="project-card gsap-slide-left">
+          <div class="project-icon">
+            <i class="fas fa-heartbeat"></i>
           </div>
+          <h4>Healthcare Payment Integration</h4>
+          <p>Built a secure PHP-based payment form with real-time Salesforce synchronization via REST APIs. Captured and linked patient data to service records, streamlining billing and reducing errors by 50%.</p>
+        </div>
+        <div class="project-card gsap-fade-in">
+          <div class="project-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h4>Sales Analytics Dashboard</h4>
+          <p>Created an interactive LWC dashboard with real-time sales metrics and forecasting tools. Integrated with external data sources to provide comprehensive insights, improving sales team performance by 22%.</p>
+        </div>
+        <div class="project-card gsap-slide-right">
+          <div class="project-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h4>Mobile Field Service App</h4>
+          <p>Developed a Salesforce Mobile SDK application for field service technicians, enabling offline data capture, GPS tracking, and real-time synchronization, reducing paperwork by 70%.</p>
         </div>
       </div>
     </div>
@@ -855,6 +940,24 @@
       { opacity: 0, y: 30 },
       { opacity: 1, y: 0, duration: 1.2, delay: 0.6 }
     );
+
+    // Skill items stagger animation
+    gsap.utils.toArray('.skill-item').forEach((item, i) => {
+      gsap.fromTo(item, 
+        { opacity: 0, y: 20 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.5, 
+          delay: i * 0.05,
+          scrollTrigger: {
+            trigger: item,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
   </script>
 </body>
 </html>
