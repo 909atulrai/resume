@@ -27,6 +27,10 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+
   <style>
     /* Reset and Base Styles */
     html, body {
@@ -37,6 +41,7 @@
       font-family: 'Poppins', sans-serif;
       color: #232528;
       line-height: 1.7;
+      scroll-behavior: smooth;
     }
 
     :root {
@@ -118,19 +123,30 @@
       margin-top: 80px;
       text-align: center;
       color: white;
+      position: relative;
+      overflow: hidden;
     }
 
     .banner h1 {
       font-size: 4rem;
       font-weight: 700;
       text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin-bottom: 1.5rem;
     }
 
     .banner p {
       font-size: 1.3rem;
       max-width: 800px;
-      margin: 20px auto 0;
+      margin: 0 auto;
       opacity: 0.95;
+    }
+
+    /* Floating elements for animation */
+    .floating-element {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      z-index: 0;
     }
 
     /* Section Styles */
@@ -186,6 +202,8 @@
       transition: transform 0.4s, border-color 0.4s;
       border: 2px solid transparent;
       height: 100%;
+      position: relative;
+      overflow: hidden;
     }
 
     .skill-box:hover {
@@ -202,6 +220,23 @@
       font-weight: 500;
       display: inline-block;
       transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-tag::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+      transition: left 0.5s;
+    }
+
+    .skill-tag:hover::before {
+      left: 100%;
     }
 
     .skill-tag:hover {
@@ -219,6 +254,8 @@
       transition: transform 0.4s, border-bottom-color 0.4s;
       text-align: center;
       border-bottom: 5px solid transparent;
+      position: relative;
+      overflow: hidden;
     }
 
     .service-box:hover {
@@ -375,6 +412,32 @@
       background: var(--primary);
     }
 
+    /* Animation Classes */
+    .gsap-fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .gsap-slide-left {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+
+    .gsap-slide-right {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+
+    .gsap-scale-in {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    .gsap-rotate-in {
+      opacity: 0;
+      transform: rotate(-10deg) scale(0.9);
+    }
+
     /* Mobile Styles */
     @media (max-width: 768px) {
       .banner h1 { font-size: 3rem; }
@@ -464,24 +527,29 @@
   </div>
 
   <section class="banner">
+    <!-- Floating elements for animation -->
+    <div class="floating-element" style="width: 100px; height: 100px; top: 10%; left: 5%;"></div>
+    <div class="floating-element" style="width: 150px; height: 150px; bottom: 15%; right: 10%;"></div>
+    <div class="floating-element" style="width: 80px; height: 80px; top: 30%; right: 15%;"></div>
+    
     <div class="container">
-      <h1 class="mb-4">Hello, I'm Atul Rai</h1>
-      <p>A seasoned Salesforce Developer with over 7 years of IT experience, including 4+ years crafting scalable CRM solutions in Sales, Service, and Experience Clouds. Expert in LWC, Apex, Pardot, and robust third-party integrations to drive business efficiency and growth.</p>
+      <h1 class="mb-4 gsap-fade-in">Hello, I'm Atul Rai</h1>
+      <p class="gsap-fade-in">A seasoned Salesforce Developer with over 7 years of IT experience, including 4+ years crafting scalable CRM solutions in Sales, Service, and Experience Clouds. Expert in LWC, Apex, Pardot, and robust third-party integrations to drive business efficiency and growth.</p>
     </div>
   </section>
 
   <section id="about" class="section-padding">
     <div class="container">
-      <h2 class="text-center section-title">About Me</h2>
+      <h2 class="text-center section-title gsap-fade-in">About Me</h2>
       <div class="row align-items-center">
         <div class="col-lg-5 mb-5 mb-lg-0">
-          <img src="https://via.placeholder.com/600x500?text=Your+Profile+Photo" alt="Atul Rai - Salesforce Developer" class="img-fluid profile-img">
+          <img src="https://via.placeholder.com/600x500?text=Your+Profile+Photo" alt="Atul Rai - Salesforce Developer" class="img-fluid profile-img gsap-slide-left">
         </div>
         <div class="col-lg-7">
-          <p class="lead">Passionate Salesforce professional dedicated to transforming business processes through innovative CRM solutions.</p>
-          <p>With a strong foundation in Sales, Service, and Experience Clouds, I specialize in developing custom applications using Apex, Lightning Web Components (LWC), and Visualforce. My expertise extends to Pardot for marketing automation and REST API integrations with platforms like Twilio, Mailchimp, and WordPress. I've delivered projects that enhanced operational efficiency, boosted lead conversion by up to 30%, and streamlined data flows for global teams.</p>
-          <p>Beyond technical skills, I focus on user-centric design and scalable architectures to ensure long-term success for clients across industries like insurance, real estate, and healthcare.</p>
-          <a href="#contact" class="btn btn-primary mt-4">Let's Collaborate</a>
+          <p class="lead gsap-fade-in">Passionate Salesforce professional dedicated to transforming business processes through innovative CRM solutions.</p>
+          <p class="gsap-fade-in">With a strong foundation in Sales, Service, and Experience Clouds, I specialize in developing custom applications using Apex, Lightning Web Components (LWC), and Visualforce. My expertise extends to Pardot for marketing automation and REST API integrations with platforms like Twilio, Mailchimp, and WordPress. I've delivered projects that enhanced operational efficiency, boosted lead conversion by up to 30%, and streamlined data flows for global teams.</p>
+          <p class="gsap-fade-in">Beyond technical skills, I focus on user-centric design and scalable architectures to ensure long-term success for clients across industries like insurance, real estate, and healthcare.</p>
+          <a href="#contact" class="btn btn-primary mt-4 gsap-fade-in">Let's Collaborate</a>
         </div>
       </div>
     </div>
@@ -489,10 +557,10 @@
 
   <section id="skills" class="section-padding bg-light">
     <div class="container">
-      <h2 class="text-center section-title">Core Skills</h2>
+      <h2 class="text-center section-title gsap-fade-in">Core Skills</h2>
       <div class="row">
         <div class="col-md-4 mb-4">
-          <div class="skill-box">
+          <div class="skill-box gsap-slide-left">
             <h4 class="mb-4"><i class="fas fa-cloud mr-2" style="color: var(--secondary);"></i>Salesforce Ecosystem</h4>
             <div class="skill-tag">Apex Programming</div>
             <div class="skill-tag">Lightning Web Components (LWC)</div>
@@ -504,7 +572,7 @@
           </div>
         </div>
         <div class="col-md-4 mb-4">
-          <div class="skill-box">
+          <div class="skill-box gsap-fade-in">
             <h4 class="mb-4"><i class="fas fa-bullhorn mr-2" style="color: var(--secondary);"></i>Marketing Automation</h4>
             <div class="skill-tag">Pardot Implementation</div>
             <div class="skill-tag">Lead Scoring Models</div>
@@ -515,7 +583,7 @@
           </div>
         </div>
         <div class="col-md-4 mb-4">
-          <div class="skill-box">
+          <div class="skill-box gsap-slide-right">
             <h4 class="mb-4"><i class="fas fa-code mr-2" style="color: var(--secondary);"></i>Web & Integrations</h4>
             <div class="skill-tag">REST/SOAP APIs</div>
             <div class="skill-tag">WordPress Development</div>
@@ -532,24 +600,24 @@
 
   <section id="services" class="section-padding">
     <div class="container">
-      <h2 class="text-center section-title">Professional Services</h2>
+      <h2 class="text-center section-title gsap-fade-in">Professional Services</h2>
       <div class="row">
         <div class="col-md-4 mb-4">
-          <div class="service-box">
+          <div class="service-box gsap-slide-left">
             <div class="service-icon"><i class="fas fa-cogs"></i></div>
             <h5 class="mb-3">Custom CRM Development</h5>
             <p>Design and implement tailored Salesforce solutions using Apex, LWC, and automated flows to optimize business processes and enhance user productivity.</p>
           </div>
         </div>
         <div class="col-md-4 mb-4">
-          <div class="service-box">
+          <div class="service-box gsap-fade-in">
             <div class="service-icon"><i class="fas fa-robot"></i></div>
             <h5 class="mb-3">Marketing Automation</h5>
             <p>Leverage Pardot and Salesforce tools to automate lead nurturing, scoring, and campaigns, resulting in improved conversion rates and personalized customer journeys.</p>
           </div>
         </div>
         <div class="col-md-4 mb-4">
-          <div class="service-box">
+          <div class="service-box gsap-slide-right">
             <div class="service-icon"><i class="fas fa-plug"></i></div>
             <h5 class="mb-3">API Integrations</h5>
             <p>Seamlessly connect Salesforce with external systems like Mailchimp, Twilio, and WordPress for real-time data synchronization and enhanced functionality.</p>
@@ -561,28 +629,28 @@
 
   <section id="projects" class="section-padding bg-light">
     <div class="container">
-      <h2 class="text-center section-title">Featured Projects</h2>
+      <h2 class="text-center section-title gsap-fade-in">Featured Projects</h2>
       <div class="row">
         <div class="col-lg-6 mb-4">
-          <div class="project-box">
+          <div class="project-box gsap-slide-left">
             <h4 class="mb-3">Insurance CRM Portal</h4>
             <p>Engineered a comprehensive LWC-based CRM system for policy management, agent tracking, and renewal processes. Implemented dynamic approval workflows and integrated LWR sites for role-based access, reducing processing time by 40%.</p>
           </div>
         </div>
         <div class="col-lg-6 mb-4">
-          <div class="project-box">
+          <div class="project-box gsap-slide-right">
             <h4 class="mb-3">Real Estate CRM with Rightmove API</h4>
             <p>Developed automated property syncing and lead generation features using asynchronous Apex and APIs. Created intuitive dashboards and data models, enabling 25% faster lead qualification for real estate agencies.</p>
           </div>
         </div>
         <div class="col-lg-6 mb-4">
-          <div class="project-box">
+          <div class="project-box gsap-slide-left">
             <h4 class="mb-3">Marketing Automation Platform</h4>
             <p>Integrated Pardot with Salesforce for advanced lead scoring and email campaigns. Designed engagement studios and behavior-based automations, increasing campaign ROI by 35% for marketing teams.</p>
           </div>
         </div>
         <div class="col-lg-6 mb-4">
-          <div class="project-box">
+          <div class="project-box gsap-slide-right">
             <h4 class="mb-3">Healthcare Payment Integration</h4>
             <p>Built a secure PHP-based payment form with real-time Salesforce synchronization via REST APIs. Captured and linked patient data to service records, streamlining billing and reducing errors by 50%.</p>
           </div>
@@ -593,10 +661,10 @@
 
   <section id="certifications" class="section-padding">
     <div class="container">
-      <h2 class="text-center section-title">Certifications</h2>
+      <h2 class="text-center section-title gsap-fade-in">Certifications</h2>
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-          <div class="cert-box">
+          <div class="cert-box gsap-scale-in">
             <p><i class="fas fa-certificate cert-icon"></i>Salesforce Certified Platform Developer I</p>
             <p><i class="fas fa-certificate cert-icon"></i>Salesforce Certified Administrator</p>
             <p><i class="fas fa-certificate cert-icon"></i>Pardot Specialist</p>
@@ -609,17 +677,17 @@
 
   <section id="contact" class="section-padding bg-light">
     <div class="container text-center">
-      <h2 class="section-title">Get in Touch</h2>
+      <h2 class="section-title gsap-fade-in">Get in Touch</h2>
       <div class="contact-info">
-        <p><i class="fas fa-envelope mr-3"></i><a href="mailto:theatulrai@gmail.com">theatulrai@gmail.com</a></p>
-        <p><i class="fas fa-phone mr-3"></i>+91-8545035946</p>
+        <p class="gsap-fade-in"><i class="fas fa-envelope mr-3"></i><a href="mailto:theatulrai@gmail.com">theatulrai@gmail.com</a></p>
+        <p class="gsap-fade-in"><i class="fas fa-phone mr-3"></i>+91-8545035946</p>
       </div>
       <div class="social-icons mt-5">
-        <a href="https://linkedin.com/in/theAtulRai" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://github.com/your-github-profile" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="https://twitter.com/your-twitter-handle" class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://linkedin.com/in/theAtulRai" class="social-icon gsap-rotate-in" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/your-github-profile" class="social-icon gsap-rotate-in" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://twitter.com/your-twitter-handle" class="social-icon gsap-rotate-in" target="_blank"><i class="fab fa-twitter"></i></a>
       </div>
-      <a href="#banner" class="btn btn-primary mt-5">Back to Top</a>
+      <a href="#banner" class="btn btn-primary mt-5 gsap-fade-in">Back to Top</a>
     </div>
   </section>
 
@@ -631,6 +699,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
   
   <script>
+    // Initialize GSAP with ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+    
     // Prevent horizontal scroll
     window.addEventListener('load', () => {
       document.documentElement.style.overflowX = 'hidden';
@@ -676,6 +747,114 @@
         });
       }).scroll();
     });
+
+    // GSAP Animations
+    gsap.utils.toArray('.gsap-fade-in').forEach(element => {
+      gsap.fromTo(element, 
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 1, 
+          scrollTrigger: {
+            trigger: element,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
+    gsap.utils.toArray('.gsap-slide-left').forEach(element => {
+      gsap.fromTo(element, 
+        { opacity: 0, x: -50 },
+        { 
+          opacity: 1, 
+          x: 0, 
+          duration: 1, 
+          scrollTrigger: {
+            trigger: element,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
+    gsap.utils.toArray('.gsap-slide-right').forEach(element => {
+      gsap.fromTo(element, 
+        { opacity: 0, x: 50 },
+        { 
+          opacity: 1, 
+          x: 0, 
+          duration: 1, 
+          scrollTrigger: {
+            trigger: element,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
+    gsap.utils.toArray('.gsap-scale-in').forEach(element => {
+      gsap.fromTo(element, 
+        { opacity: 0, scale: 0.8 },
+        { 
+          opacity: 1, 
+          scale: 1, 
+          duration: 1, 
+          scrollTrigger: {
+            trigger: element,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
+    gsap.utils.toArray('.gsap-rotate-in').forEach(element => {
+      gsap.fromTo(element, 
+        { opacity: 0, rotation: -10, scale: 0.9 },
+        { 
+          opacity: 1, 
+          rotation: 0, 
+          scale: 1, 
+          duration: 1, 
+          scrollTrigger: {
+            trigger: element,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
+    // Banner floating elements animation
+    gsap.to('.floating-element', {
+      y: 30,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: "power1.inOut",
+      stagger: 0.5
+    });
+
+    // Banner text animation
+    gsap.fromTo('.banner h1', 
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 1.2, delay: 0.3 }
+    );
+    
+    gsap.fromTo('.banner p', 
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1.2, delay: 0.6 }
+    );
   </script>
 </body>
 </html>
